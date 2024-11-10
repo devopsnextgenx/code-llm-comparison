@@ -1,6 +1,6 @@
 ### Case 1. Get first repeating character in a string
 
-```
+```text
 For given string, find the first repeating character in it and return its count repeatation in given string.
 ```
 Results:
@@ -17,7 +17,7 @@ Results:
 
 ### Case 2. Get first repeating character in a string, with added more context
 
-```
+```text
 For given string, find the first repeating character in it and return its total repeatation count in given string along with character.
 ```
 Results:
@@ -33,7 +33,7 @@ Results:
 
 ### Case 3. Get last repeating character in a string, with added more context
 
-```
+```text
 For given string, find the last repeating character in it and return its total repeatation count in given string along with character.
 ```
 Results:
