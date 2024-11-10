@@ -21,8 +21,9 @@ Results:
 For given string, find the first repeating character in it and return its total repeatation count in given string along with character.
 ```
 Results:
-- Except for codellama, everyone missed the correct output, codellama was on the spot with the correct output and format
-- Qwen was the only one who got the format for output correct
+- Except for claude, everyone missed the correct output
+- All model improved with the added context, and gave correct output format, but its not accurate
+- Gemma and Qwen were able to get the correct character, but unable to get the correct count
 
 | LLM | Format | Character | Count |
 | --- | --- | --- | --- |
@@ -37,8 +38,8 @@ Results:
 For given string, find the last repeating character in it and return its total repeatation count in given string along with character.
 ```
 Results:
-- Except for codellama, everyone missed the correct output, codellama was on the spot with the correct output and format
-- Qwen was the only one who got the format for output correct
+- Except for claude, everyone missed the correct output
+- With twisted context for question, every model failed to get the correct output
 
 | LLM | Format | Character | Count |
 | --- | --- | --- | --- |
@@ -47,7 +48,7 @@ Results:
 | gemma Control | ✅ | ❌ | ❌ |
 | qwen | ✅ | ❌ | ❌ |
 
-### Decision:
+### Outcome:
 - claude is the best for coding logic, output format and output correctness, also providing comments on the code to explain the code
 - qwen is next best model, not as good as claude for coding logic but understands input/output format better than others
 - qwen code seems to be easier to modify to get the desired output
