@@ -13,8 +13,8 @@ Results:
 | claude | ✅ | ✅ | ✅ |
 | codellama | ✅ | NA | ❌ |
 | gemma Control | ✅ | NA | ❌ |
-| qwen | ✅ | ✅ | ❌ |
-| qwen2.5 | ✅ | ❌ | ❌ |
+| qwen | ✅ | NA | ❌ |
+| qwen2.5 | ✅ | NA | ❌ |
 
 ### Case 2. Get first repeating character in a string, with added more context
 
