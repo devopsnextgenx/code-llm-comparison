@@ -14,6 +14,7 @@ Results:
 | codellama | ✅ | NA | ❌ |
 | gemma Control | ✅ | NA | ❌ |
 | qwen | ✅ | ✅ | ❌ |
+| qwen2.5 | ✅ | ❌ | ❌ |
 
 ### Case 2. Get first repeating character in a string, with added more context
 
@@ -31,6 +32,7 @@ Results:
 | codellama | ✅ | ❌ | ❌ |
 | gemma Control | ✅ | ✅ | ❌ |
 | qwen | ✅ | ✅ | ❌ |
+| qwen2.5 | ✅ | ✅ | ✅ |
 
 ### Case 3. Get last repeating character in a string, with added more context
 
@@ -47,6 +49,7 @@ Results:
 | codellama | ✅ | ❌ | ❌ |
 | gemma Control | ✅ | ❌ | ❌ |
 | qwen | ✅ | ❌ | ❌ |
+| qwen2.5 | ✅ | ✅ | ✅ |
 
 ### Outcome:
 - claude is the best for coding logic, output format and output correctness, also providing comments on the code to explain the code

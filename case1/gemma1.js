@@ -14,5 +14,5 @@ function findFirstRepeatingCharacter(str) {
 }
 
 console.log(`First repeated char and count`);
-console.log(`programmingr: ${JSON.stringify(findFirstRepeatingCharacter("programmingr"))} [char->incorrect]: [count->incorrect]`);
-console.log(`promgramming: ${JSON.stringify(findFirstRepeatingCharacter("promgramming"))} [char->incorrect]: [count->incorrect]`);
+console.log(`programmingr: ${JSON.stringify(findFirstRepeatingCharacter("programmingr"))} [char->NA]: [count->correct]`);
+console.log(`promgramming: ${JSON.stringify(findFirstRepeatingCharacter("promgramming"))} [char->NA]: [count->correct]`);

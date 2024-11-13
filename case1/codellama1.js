@@ -14,5 +14,5 @@ function getRepeatedCharacterCount(str) {
 }
 
 console.log(`First repeated char and count`);
-console.log(`programmingr: ${JSON.stringify(getRepeatedCharacterCount("programmingr"))} [char->incorrect]: [count->incorrect]`);
-console.log(`promgramming: ${JSON.stringify(getRepeatedCharacterCount("promgramming"))} [char->incorrect]: [count->incorrect]`);
+console.log(`programmingr: ${JSON.stringify(getRepeatedCharacterCount("programmingr"))} [char->NA]: [count->correct]`);
+console.log(`promgramming: ${JSON.stringify(getRepeatedCharacterCount("promgramming"))} [char->NA]: [count->correct]`);
