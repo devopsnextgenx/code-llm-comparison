@@ -55,3 +55,4 @@ Results:
 - claude is the best for coding logic, output format and output correctness, also providing comments on the code to explain the code
 - qwen is next best model, not as good as claude for coding logic but understands input/output format better than others
 - qwen code seems to be easier to modify to get the desired output
+- qwen2.5 seems to compete with claude for coding logic and output correctness, but still in some cases, claude is better
