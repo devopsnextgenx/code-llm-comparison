@@ -56,3 +56,18 @@ Results:
 - qwen is next best model, not as good as claude for coding logic but understands input/output format better than others
 - qwen code seems to be easier to modify to get the desired output
 - qwen2.5 seems to compete with claude for coding logic and output correctness, but still in some cases, claude is better
+
+## Simulator for Physics to get how they come up with new g:
+
+### Prompt:
+```
+Throw a ball with such a speed and angle to get range of 70m and height 40m, adjust speed and angle according to returned response range distance and height of called function, call mcp tool max 5 times or less and give best possible option as response, if achived response within +/-0.5m for both range distance and height consider it as best, also predict possible g value you can understand from retrieved throw data (Assumtion for throwing ball on earth might not be valid, as you dont know what planet you are on)
+Final response should be as below, in json:
+- Speed
+- Angle
+- calculated possible value of g from previous throw data
+- Model (LLM model version and name. Yourself)
+```
+
+### Conclusion:
+- Only Gemini Flash model was able to get the value reverse calculated
