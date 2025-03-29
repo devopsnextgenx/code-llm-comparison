@@ -41,3 +41,13 @@
 2025-03-22 22:57:09,478 - root - INFO - throwRangeAndHeight (g: 24.606359594181114) function called with: 45, 62 -> 68.22630864993782, 32.07875607770635
 2025-03-22 22:57:11,731 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
 2025-03-22 22:57:11,731 - root - INFO - throwRangeAndHeight (g: 24.606359594181114) function called with: 45.5, 63 -> 68.06644543229409, 33.39698021945336
+2025-03-23 10:41:24,519 - root - INFO - Starting MCP server
+2025-03-23 10:41:24,523 - root - INFO - Gravity is set to: 15.713938246694799
+2025-03-23 10:41:24,595 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-03-23 10:41:24,953 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-03-23 10:41:25,001 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-03-29 12:25:52,880 - root - INFO - Starting MCP server
+2025-03-29 12:25:52,885 - root - INFO - Gravity is set to: 11.206658164105107
+2025-03-29 12:25:52,966 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-03-29 12:25:53,180 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-03-29 12:25:53,182 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest

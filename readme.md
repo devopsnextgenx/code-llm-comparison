@@ -71,3 +71,9 @@ Final response should be as below, in json:
 
 ### Conclusion:
 - Only Gemini Flash model was able to get the value reverse calculated
+
+
+## langgraph
+```
+docker compose up -d
+```

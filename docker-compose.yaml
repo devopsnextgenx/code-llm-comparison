@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # LangGraph server (custom build)
+  langgraph:
+    build:
+      context: .
+      dockerfile: Dockerfile.langgraph
+    environment:
+      - LANGGRAPH_DB_URL=mysql+pymysql://langgraph:langpasswd@mysql:3306/langgraph
+      - LANGGRAPH_CACHE_URL=redis://redis:6379/0
+      - LANGGRAPH_ENV=development
+      - LANGGRAPH_HOST=0.0.0.0
+      - LANGGRAPH_PORT=8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - langgraph-network
+    restart: unless-stopped
+    volumes:
+      - ./graphs:/app/graphs
+
+  # MySQL database
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=admnpasswd
+      - MYSQL_DATABASE=langgraph
+      - MYSQL_USER=langgraph
+      - MYSQL_PASSWORD=langpasswd
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - langgraph-network
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+
+  # Redis cache
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - langgraph-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+networks:
+  langgraph-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:

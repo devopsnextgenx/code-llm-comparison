@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangGraph UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 100px;
+            font-family: monospace;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            overflow: auto;
+            border-radius: 4px;
+        }
+        #status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+    </style>
+</head>
+<body>
+    <h1>LangGraph UI</h1>
+    
+    <div class="container">
+        <div class="card">
+            <h2>LangGraph Status</h2>
+            <div id="serverInfo">Loading server information...</div>
+            <button onclick="checkServerStatus()">Refresh Status</button>
+        </div>
+        
+        <div class="card">
+            <h2>Run Graph</h2>
+            <div class="form-group">
+                <label for="graphSelect">Select Graph:</label>
+                <select id="graphSelect">
+                    <option value="">Loading graphs...</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="questionInput">Question:</label>
+                <input type="text" id="questionInput" placeholder="Enter your question here">
+            </div>
+            
+            <button id="runButton" onclick="runGraph()">Run Graph</button>
+            
+            <div id="status" style="display: none;"></div>
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="resultOutput">Result:</label>
+                <pre id="resultOutput">Results will appear here...</pre>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Load available graphs when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkServerStatus();
+        });
+        
+        // Check server status and get available graphs
+        async function checkServerStatus() {
+            try {
+                const response = await fetch('http://localhost:8000/');
+                const data = await response.json();
+                
+                // Create HTML for server information
+                let serverInfoHtml = `
+                    <p><strong>Status:</strong> Running</p>
+                    <p><strong>LangGraph Version:</strong> ${data.version}</p>
+                    <p><strong>Available Graphs:</strong> ${data.available_graphs.length === 0 ? 'None' : data.available_graphs.join(', ')}</p>
+                `;
+                
+                document.getElementById('serverInfo').innerHTML = serverInfoHtml;
+                
+                // Populate graph select dropdown
+                const graphSelect = document.getElementById('graphSelect');
+                graphSelect.innerHTML = '';
+                
+                if (data.available_graphs.length === 0) {
+                    graphSelect.innerHTML = '<option value="">No graphs available</option>';
+                } else {
+                    data.available_graphs.forEach(graph => {
+                        const option = document.createElement('option');
+                        option.value = graph;
+                        option.textContent = graph;
+                        graphSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                document.getElementById('serverInfo').innerHTML = `
+                    <p><strong>Status:</strong> Error - Could not connect to server</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+                document.getElementById('graphSelect').innerHTML = '<option value="">Server not available</option>';
+            }
+        }
+        
+        // Run the selected graph with the provided question
+        async function runGraph() {
+            const graphName = document.getElementById('graphSelect').value;
+            const question = document.getElementById('questionInput').value;
+            const statusDiv = document.getElementById('status');
+            const resultOutput = document.getElementById('resultOutput');
+            const runButton = document.getElementById('runButton');
+            
+            if (!graphName) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = 'Please select a graph';
+                statusDiv.style.display = 'block';
+                return;
+            }
+            
+            if (!question.trim()) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = 'Please enter a question';
+                statusDiv.style.display = 'block';
+                return;
+            }
+            
+            // Disable button and show loading
+            runButton.disabled = true;
+            statusDiv.className = '';
+            statusDiv.textContent = 'Processing...';
+            statusDiv.style.display = 'block';
+            resultOutput.textContent = 'Processing your request...';
+            
+            try {
+                const response = await fetch(`http://localhost:8000/process/${graphName}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display the result
+                statusDiv.className = 'success';
+                statusDiv.textContent = 'Request processed successfully';
+                resultOutput.textContent = JSON.stringify(data.result, null, 2);
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = `Error: ${error.message}`;
+                resultOutput.textContent = 'An error occurred while processing your request.';
+            } finally {
+                runButton.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies with explicit versions to avoid compatibility issues
+RUN pip install --no-cache-dir \
+    fastapi==0.109.0 \
+    uvicorn==0.27.0 \
+    langgraph==0.0.25 \
+    pymysql==1.1.0 \
+    redis==5.0.1 \
+    pydantic==2.5.2
+
+# Create a minimal FastAPI application to test
+COPY main.py /app/main.py
+COPY index.html /app/index.html
+
+# Create graphs directory
+RUN mkdir -p /app/graphs
+
+EXPOSE 8000
+
+# Run the server with explicit command
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
